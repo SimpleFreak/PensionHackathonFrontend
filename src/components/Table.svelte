@@ -1,7 +1,21 @@
 <script>
 // @ts-nocheck
+let isLoading = true;
+let isDeleting = false;
+import {onMount} from 'svelte'
 
-    export let users
+onMount(async () => {
+    isLoading = true
+    try{
+        const response = await fetch('http://147.45.110.199/');
+        data = await response.json();
+    }catch{
+        console.log('err lFiles')
+    }finally{
+        isLoading = false
+    }
+
+  });
 </script>
 
 <!-- <div class="_table-container">

@@ -3,13 +3,12 @@
 
 import Radio from "../../components/Radio.svelte";
 import Diagrams from "../../components/Diagrams.svelte";
-  import Table from "../../components/Table.svelte";
-  import { onMount } from "svelte";
+import Table from "../../components/Table.svelte";
+import { onMount } from "svelte";
 let radioValue='PERSONS';
 let error = '';
 export let users;
 onMount(async () => {
-
       try {
         const response = await fetch('https://jsonplaceholder.typicode.com/users', {
           method: 'GET',

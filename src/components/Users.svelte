@@ -4,9 +4,11 @@
 import { onMount } from 'svelte';
 import LoadingPopup from './LoadingPopup.svelte';
 import { fade } from 'svelte/transition';
+  import RegistrationPopup from './RegistrationPopup.svelte';
 
 let isLoading = true
 let isDeleting = false
+let isRegistration = false
 let data=null
 
 onMount(async () => {
@@ -28,20 +30,38 @@ onMount(async () => {
   });
 
 async function addUser(){
-
+    isRegistration = !isRegistration
 }
 async function updateUser(id){
 
 }
 async function delUser(id){
 
-}
+    try {
+        console.log('delete')
+      const response = await fetch(`http://147.45.110.199/DeleteUser/${id}`, {
+        method: 'DELETE'
+      });
+
+      if (!response.ok) {
+        alert("Ошибка загрузки файла");
+      }
+      else{
+        console.log('ok')
+      }
+      
+      data = data.filter(item => item.id !== id);
+    } catch (error) {
+      console.error("Произошла ошибка:", error);
+}}
 </script>
 
 {#if isLoading}
     <LoadingPopup isOpen={isLoading}></LoadingPopup>
 {:else if isDeleting}
     <LoadingPopup isOpen={isDeleting}></LoadingPopup>
+{:else if isRegistration}
+    <RegistrationPopup isOpen={isRegistration}></RegistrationPopup>
 {:else}
     <div transition:fade={{ duration: 500 }} class="title">
         <h1 class="title">Все сотрудники</h1>
@@ -52,7 +72,7 @@ async function delUser(id){
     {#each data as user}
     <div class="row">
         <div id='{user.id}'>
-            <p class="row__title">{user.fileName}</p>
+            <p class="row__title">{user.login}</p>
         </div>
         <div>
             <button onclick={() => updateUser(user.id)} class="row__icons-go">Редактировать</button>

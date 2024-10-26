@@ -5,7 +5,7 @@ import Cookies from 'js-cookie'
   import Users from '../../components/Users.svelte';
 let role = ''
 
-Cookies.set('role', 'user')
+Cookies.set('role', 'admin')
 function checkRole(){
 
 }
