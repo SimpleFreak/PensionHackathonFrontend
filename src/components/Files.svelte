@@ -40,7 +40,7 @@ async function deleteData(id){
   isDeleting = true
     try {
         console.log('delete')
-      const response = await fetch(`http://147.45.110.199/DeleteFile${id}`, {
+      const response = await fetch(`http://147.45.110.199/DeleteFile/${id}`, {
         method: 'DELETE'
       });
 
@@ -86,6 +86,8 @@ async function uploadData(){
 </script>
 {#if isLoading}
     <LoadingPopup isOpen={isLoading}></LoadingPopup>
+{:else if isDeleting}
+    <LoadingPopup isOpen={isDeleting}></LoadingPopup>
 {:else}
     <div transition:fade={{ duration: 500 }} class="title">
         <h1 class="title">Все загруженные файлы</h1>
