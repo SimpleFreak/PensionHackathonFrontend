@@ -2,10 +2,10 @@
 // @ts-nocheck
 
 import { onMount } from 'svelte';
+import LoadingPopup from './LoadingPopup.svelte';
+import { fade } from 'svelte/transition';
 
-// @ts-ignore
 let data = null;
-// @ts-ignore
 let file = null;
 let isLoading = true;
 let isDeleting = false;
@@ -13,12 +13,17 @@ let isDeleting = false;
 onMount(async () => {
     isLoading = true
     try{
-        const response = await fetch('http://147.45.110.199/GetAllFiles');
+        const response = await fetch('http://147.45.110.199/GetAllFiles', {
+          method: 'GET',
+          mode: 'cors',
+          headers: {'Content-Type': 'application/file'},
+        });
         data = await response.json();
-    }catch{
-        console.log('err getAllFiles')
+    }catch(error){
+        console.log('err getAllFiles ' + error)
     }finally{
         isLoading = false
+        console.log(data)
     }
 
   });
@@ -32,6 +37,7 @@ async function getData(){
     console.log('getData')
 }
 async function deleteData(id){
+  isDeleting = true
     try {
         console.log('delete')
       const response = await fetch(`http://147.45.110.199/DeleteFile${id}`, {
@@ -48,6 +54,8 @@ async function deleteData(id){
       data = data.filter(item => item.id !== id);
     } catch (error) {
       console.error("Произошла ошибка:", error);
+    }finally{
+      isDeleting=false
     }
 }
 async function uploadData(){
@@ -77,11 +85,9 @@ async function uploadData(){
   }
 </script>
 {#if isLoading}
-    <div class="loading-block">
-        Загрузка...
-    </div>
+    <LoadingPopup isOpen={isLoading}></LoadingPopup>
 {:else}
-    <div class="title">
+    <div transition:fade={{ duration: 500 }} class="title">
         <h1 class="title">Все загруженные файлы</h1>
         <input type="file" accept=".csv" onchange="{handleFileChange}" />
         <button onclick={uploadData} class="title_btn">Загрузить новый файл</button>
