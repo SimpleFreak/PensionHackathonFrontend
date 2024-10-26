@@ -26,6 +26,10 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    margin-bottom: 50px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
   }
   .ctgr__btn{
     color: rgba(42, 38, 38, 0.6);
@@ -36,7 +40,7 @@
     line-height: 100%;
     border-radius: 19px;
   
-    background: #fbfdfe;
+    background: #fff;
     padding: 12px 24px;
     justify-content: center;
     align-items: center;

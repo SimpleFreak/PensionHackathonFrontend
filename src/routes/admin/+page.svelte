@@ -1,5 +1,6 @@
 <script>
 // @ts-nocheck
+import '../app.css'
 import Cookies from 'js-cookie'
   import { onMount } from 'svelte';
   import Users from '../../components/Users.svelte';
@@ -14,23 +15,24 @@ onMount(async () =>{
 } )
 </script>
 
-{#if role=='admin'}
+{#if role=='User'}
 <div class="container">
-    <Users></Users>
+    Permission denied
 </div>
     
 {:else}
 <div class="container">
-    Permission denied
+    <Users></Users>
 </div>
 {/if}
 <style>
+
 .container{
     max-width: 1080px;
     margin: 0px auto;
     display: flex;
     flex-direction: column;
-    background-color: #fff;
+    background-color: #eee;
 }
 
 </style>

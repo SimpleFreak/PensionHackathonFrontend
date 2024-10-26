@@ -11,6 +11,7 @@
     background-color: #163309;
     border: 1px solid;
     border-radius: 15px;
-    padding: 10px;
+    padding: 10px 15%;
+    max-width: 200px;
 }
 </style>

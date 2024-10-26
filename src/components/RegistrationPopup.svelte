@@ -94,6 +94,14 @@
 {/if}
 
 <style>
+    form {
+          display: flex;
+          flex-direction: column;
+          
+          align-items: center;
+          max-width: 400px;
+          margin: 0px auto;
+        }
     .overlay {
       position: fixed;
       top: 0;

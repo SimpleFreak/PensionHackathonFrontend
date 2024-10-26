@@ -4,6 +4,7 @@
 import { onMount } from 'svelte';
 import LoadingPopup from './LoadingPopup.svelte';
 import { fade } from 'svelte/transition';
+  import Load from './Load.svelte';
 
 let data = null;
 let file = null;
@@ -59,9 +60,6 @@ async function deleteData(id){
     }
 }
 async function uploadData(){
-    // @ts-ignore
-    if (!file) return alert("Пожалуйста, выберите файл");
-
     const formData = new FormData();
     formData.append("file", file);
 
@@ -85,48 +83,76 @@ async function uploadData(){
   }
 </script>
 {#if isLoading}
-    <LoadingPopup isOpen={isLoading}></LoadingPopup>
-{:else if isDeleting}
-    <LoadingPopup isOpen={isDeleting}></LoadingPopup>
+    <Load isOpen={isLoading}></Load>
 {:else}
+<div class="_container">
     <div transition:fade={{ duration: 500 }} class="title">
-        <h1 class="title">Все загруженные файлы</h1>
-        <input type="file" accept=".csv" onchange="{handleFileChange}" />
-        <button onclick={uploadData} class="title_btn">Загрузить новый файл</button>
-    </div>
+      <h1 class="title_text">Все загруженные файлы</h1>
+      <form method="post" enctype="multipart/form-data" onsubmit="{uploadData}">
+        <label class="title_btn">
+            <input type="file" name="file" accept=".csv">		
+            <span>Загрузить файл</span>
+        </label>
+      </form>
+  </div>
 
-    {#each data as file}
-    <div class="row">
-        <div id='{file.id}'>
-            <p class="row__title">{file.fileName}</p>
-        </div>
-        <div>
-            <button onclick={getData} class="row__icons-go">Загрузить</button>
-            <button onclick={() => deleteData(file.id)} class="row__icons-del">Удалить</button>
-        </div>
-    </div> 
-    {/each}
+  {#each data as file}
+  <div class="row">
+      <div id='{file.id}'>
+          <p class="row__title">{file.fileName}</p>
+      </div>
+      <div>
+          <button onclick={getData} class="row__icons-go">Загрузить</button>
+          <button onclick={() => deleteData(file.id)} class="row__icons-del">Удалить</button>
+      </div>
+  </div> 
+  {/each}
+</div>
+
 {/if}
 
 
 <style>
+._container{
+  background-color: #fff;
+  border-radius: 15px;
+  width: 100%;
+  min-height: 100%;
+}
 .title{
-    font-size: 32px;
-    font-weight: 400;
     display: flex;
     align-content: center;
     justify-content: space-between;
     margin: 0;
+    border-bottom: 3px solid #f5f5f5;
+    padding: 15px 30px;
+    align-items: center;
+}
+.title_text{
+  font-size: 28px;
+
+  font-weight: 600;
 }
 .title_btn{
+    font-size: 16px;
+    outline: none;
+    text-decoration: none;
     cursor: pointer;
     color: #fff;
-    border: 1px solid #163309;
+    border: 3px solid #0d2005;
     border-radius: 10px;
     padding: 10px;
     background-color: #163309;
     transition: 0.3s ease all;
     margin-right: 20px;
+}
+.title_btn input[type=file] {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    display: block;
+    width: 0;
+    height: 0;
 }
 .title_btn:hover{
     transition: 0.3s ease all;
@@ -137,7 +163,8 @@ async function uploadData(){
   align-items: center;
   justify-content: space-between;
   margin-top: 10px;
-
+  padding: 5px 30px;
+  border-bottom: 1px solid #f5f5f5;
 }
 .row__title{
     font-size: 15px;
@@ -145,7 +172,7 @@ async function uploadData(){
 .row__icons-go{
     cursor: pointer;
     color: #fff;
-    border: 1px solid #8da870;
+    border: 3px solid #628042;
     border-radius: 10px;
     padding: 10px;
     background-color: #8DA870;
@@ -159,7 +186,7 @@ async function uploadData(){
 .row__icons-del{
     cursor: pointer;
     color: #fff;
-    border: 1px solid #6b1a2b;
+    border: 3px solid #610f21;
     border-radius: 10px;
     padding: 10px;
     background-color: #6b1a2b;

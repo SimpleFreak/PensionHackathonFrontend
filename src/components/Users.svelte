@@ -4,7 +4,7 @@
 import { onMount } from 'svelte';
 import LoadingPopup from './LoadingPopup.svelte';
 import { fade } from 'svelte/transition';
-  import RegistrationPopup from './RegistrationPopup.svelte';
+import RegistrationPopup from './RegistrationPopup.svelte';
 
 let isLoading = true
 let isDeleting = false

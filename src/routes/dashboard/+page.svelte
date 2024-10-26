@@ -5,6 +5,7 @@ import Radio from "../../components/Radio.svelte";
 import Diagrams from "../../components/Diagrams.svelte";
 import Table from "../../components/Table.svelte";
 import { onMount } from "svelte";
+  import Files from "../../components/Files.svelte";
 let radioValue='PERSONS';
 let error = '';
 export let users;
@@ -38,19 +39,24 @@ const casesWeb = [
 
 	const options = [{
 		value: 'red',
-		label: 'PERSONS',
+		label: 'РЕЗУЛЬТАТЫ',
 	}, {
 		value: 'blue',
-		label: 'DIAGRAMS',
-	}]
+		label: 'ДИАГРАММЫ',
+	}, {
+    value: 'file',
+    label: 'ФАЙЛЫ',
+  }]
 </script>
 
 <div class="container">
     <Radio {options} bind:userSelected={radioValue}></Radio>
-    {#if radioValue == "PERSONS"}
+    {#if radioValue == "РЕЗУЛЬТАТЫ"}
       <Table {users}></Table>
-    {:else if radioValue == "DIAGRAMS"}
+    {:else if radioValue == "ДИАГРАММЫ"}
       <Diagrams {casesBot} {casesWeb} {radioValue}></Diagrams>
+    {:else if radioValue == "ФАЙЛЫ"}
+      <Files></Files>
     {:else}
       <Diagrams {casesBot} {casesWeb} {radioValue}></Diagrams>
     {/if}
@@ -61,5 +67,6 @@ const casesWeb = [
 .container{
     max-width: 1080px;
     margin: 0px auto;
+    height: 100%;
 }
 </style>

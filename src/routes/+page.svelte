@@ -41,14 +41,7 @@
       </script>
     
       <div class="container">
-        {#if success}
-          <p>Авторизация успешна!</p>
-        {/if}
-        
-        {#if error}
-          <p class="error">{error}</p>
-        {/if}
-        <h1>Авторизация</h1>
+        <h1 style="text-align: center; margin-bottom: 30px">Авторизация</h1>
         <form on:submit|preventDefault={handleSubmit}>
           <div>
             <label for="login">Имя пользователя:</label>
@@ -62,6 +55,9 @@
           
           
           <Button title='Войти'></Button>
+          {#if error}
+          <p class="error">{error}</p>
+          {/if}
         </form>
         </div>
       
@@ -70,16 +66,15 @@
         .container{
           max-width: 1080px;
           margin: 0px auto;
-        }
-        body{
-        background-color: #FBFBFD;
-        color: #163309;
+          transform: translateY(60%);
         }
         form {
           display: flex;
           flex-direction: column;
-          max-width: 300px;
-          margin: auto;
+          
+          align-items: center;
+          max-width: 400px;
+          margin: 0px auto;
         }
         div {
           display: flex;
@@ -97,8 +92,9 @@
           border: 0px;
           padding: 10px;
           background-color: white;
-          -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
-          -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
-          box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);    
+          -webkit-box-shadow: 0px 1px 10px 2px rgba(34, 60, 80, 0.2);
+          -moz-box-shadow: 0px 1px 10px 2px rgba(34, 60, 80, 0.2);
+          box-shadow: 0px 1px 10px 2px rgba(34, 60, 80, 0.2);
+          border-radius: 5px;
     }
     </style>
