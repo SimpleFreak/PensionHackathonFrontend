@@ -11,9 +11,10 @@ let file = null;
 let isLoading = true;
 let isDeleting = false;
 
-onMount(async () => {
+onMount(async function mountData(){
     isLoading = true
     try{
+      console.log('onmount')
         const response = await fetch('http://147.45.110.199/GetAllFiles', {
           method: 'GET',
           mode: 'cors',
@@ -60,6 +61,7 @@ async function deleteData(id){
     }
 }
 async function uploadData(){
+  handleFileChange()
     const formData = new FormData();
     formData.append("file", file);
 
@@ -73,6 +75,7 @@ async function uploadData(){
       if (response.ok) {
         alert("Файл успешно загружен!");
       } else {
+
         alert("Ошибка загрузки файла");
       }
     } catch (error) {
@@ -88,9 +91,9 @@ async function uploadData(){
 <div class="_container">
     <div transition:fade={{ duration: 500 }} class="title">
       <h1 class="title_text">Все загруженные файлы</h1>
-      <form method="post" enctype="multipart/form-data" onsubmit="{uploadData}">
+      <form method="post" enctype="multipart/form-data" >
         <label class="title_btn">
-            <input type="file" name="file" accept=".csv">		
+            <input onchange={(event) => uploadData(event)} type="file" name="file" accept=".csv">		
             <span>Загрузить файл</span>
         </label>
       </form>

@@ -52,15 +52,10 @@
 <div class="overlay" transition:fade={{ duration: 500 }}>
   <div class="popup" transition:fade={{ duration: 500 }}>
     <div class="container">
-        {#if success}
-          <p>Регистрация успешна!</p>
-        {/if}
-        
-        {#if error}
-          <p class="error">{error}</p>
-        {/if}
-        <h1>Регистрация нового пользователя</h1>
-        <button class="close_btn" onclick={closePopup}>x</button>
+        <div class="title">
+          <h1 style="font-size: 24px;">Регистрация нового пользователя</h1>
+          <button class="close_btn" onclick={closePopup}>x</button>
+        </div>
         <form onsubmit={handleSubmit}>
           <div>
             <label for="login">Имя пользователя:</label>
@@ -69,7 +64,7 @@
 
           <div>
             <label for="role">Роль:</label>
-            <select id="role" bind:value={role} required>
+            <select style="padding: 10px 35px;" id="role" bind:value={role} required>
               <option value="" disabled selected>Выберите роль</option>
               <option value="Admin">Администратор</option>
               <option value="User">Пользователь</option>
@@ -85,8 +80,14 @@
             <label for="confirmPassword">Подтвердите пароль:</label>
             <input class="input" id="confirmPassword" type="password" bind:value={confirmPassword} required />
           </div>
+          {#if success}
+            <p>Регистрация успешна!</p>
+          {/if}
           
-          <Button title='Зарегистрироваться'></Button>
+          {#if error}
+            <p class="error">{error}</p>
+          {/if}
+          <Button title='Зарегистрировать'></Button>
         </form>
         </div>
   </div>
@@ -97,12 +98,13 @@
     form {
           display: flex;
           flex-direction: column;
-          
           align-items: center;
           max-width: 400px;
           margin: 0px auto;
+          text-align: left;
         }
     .overlay {
+      margin: 0;
       position: fixed;
       top: 0;
       left: 0;
@@ -110,6 +112,7 @@
       bottom: 0;
       display: flex;
       align-items: center;
+      background-color: rgba(0, 0, 0, 0.5);
       justify-content: center;
       z-index: 1000;
     }
@@ -128,6 +131,10 @@
     .container{
       max-width: 1080px;
       margin: 0px auto;
+    }
+    .title{
+      display: flex;
+      flex-direction: row;
     }
     form {
       display: flex;
@@ -155,4 +162,11 @@
       -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
       box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);    
 }
+    .close_btn {
+      align-self: flex-start;
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+  }
 </style>

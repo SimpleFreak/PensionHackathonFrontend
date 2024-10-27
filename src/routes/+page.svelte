@@ -1,6 +1,6 @@
 <script>
     // @ts-nocheck
-    
+      import Cookies from 'js-cookie'
       import Button from "../components/Button.svelte";
     
         let login = '';
@@ -8,6 +8,7 @@
         let confirmPassword = '';
         let error = '';
         let success = false;
+        let role = '';
       
         const handleSubmit = async (event) => {
           event.preventDefault();
@@ -19,23 +20,27 @@
               mode: 'cors',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ login, password })
+            }).then((value) => {
+              role = value
+              console.log(role)
             });
 
 
       
             if (response.ok) {
+              // Cookies.set(`role=${role}`)
               success = true;
               error = '';
               login = '';
               password = '';
               confirmPassword = '';
-              window.location.href = '/dashboard';
+              // window.location.href = '/dashboard';
             } else {
               const data = await response.json();
               error = data.message || 'Произошла ошибка при авторизации';
             }
           } catch (err) {
-            error = 'Ошибка подключения';
+            error = err;
           }
         };
       </script>
@@ -71,10 +76,10 @@
         form {
           display: flex;
           flex-direction: column;
-          
           align-items: center;
           max-width: 400px;
           margin: 0px auto;
+          text-align: left;
         }
         div {
           display: flex;

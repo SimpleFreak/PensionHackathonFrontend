@@ -1,6 +1,6 @@
 <script>
     export let options;
-    export let userSelected = "PERSONS";
+    export let userSelected = "РЕЗУЛЬТАТЫ";
   
   
   </script>

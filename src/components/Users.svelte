@@ -11,7 +11,7 @@ let isDeleting = false
 let isRegistration = false
 let data=null
 
-onMount(async () => {
+onMount(async function mountData(){
     isLoading = true
     try{
         const response = await fetch('http://147.45.110.199/GetUsers', {
@@ -22,6 +22,7 @@ onMount(async () => {
         data = await response.json();
     }catch(error){
         console.log('err GetUsers ' + error)
+        await setTimeout(mountData, 3000)
     }finally{
         isLoading = false
         console.log(data)
@@ -38,7 +39,7 @@ async function updateUser(id){
 async function delUser(id){
 
     try {
-        console.log('delete')
+        console.log('delete' + id)
       const response = await fetch(`http://147.45.110.199/DeleteUser/${id}`, {
         method: 'DELETE'
       });
@@ -47,7 +48,7 @@ async function delUser(id){
         alert("Ошибка загрузки файла");
       }
       else{
-        console.log('ok')
+        console.log(response.json())
       }
       
       data = data.filter(item => item.id !== id);
@@ -63,8 +64,9 @@ async function delUser(id){
 {:else if isRegistration}
     <RegistrationPopup isOpen={isRegistration}></RegistrationPopup>
 {:else}
+<div class="_container">
     <div transition:fade={{ duration: 500 }} class="title">
-        <h1 class="title">Все сотрудники</h1>
+        <h1 class="title-text">Все сотрудники</h1>
 
         <button onclick={addUser} class="title_btn">Добавить сотрудника</button>
     </div>
@@ -80,21 +82,37 @@ async function delUser(id){
         </div>
     </div> 
     {/each}
+</div>
 {/if}
 
 <style>
+._container{
+  background-color: #fff;
+  border-radius: 15px;
+  width: 100%;
+  min-height: 100%;
+}
 .title{
-    font-size: 32px;
-    font-weight: 400;
     display: flex;
     align-content: center;
     justify-content: space-between;
     margin: 0;
+    border-bottom: 3px solid #f5f5f5;
+    padding: 15px 30px;
+    align-items: center;
+}
+.title_text{
+  font-size: 28px;
+
+  font-weight: 600;
 }
 .title_btn{
+    font-size: 16px;
+    outline: none;
+    text-decoration: none;
     cursor: pointer;
     color: #fff;
-    border: 1px solid #163309;
+    border: 3px solid #0d2005;
     border-radius: 10px;
     padding: 10px;
     background-color: #163309;
@@ -110,7 +128,8 @@ async function delUser(id){
   align-items: center;
   justify-content: space-between;
   margin-top: 10px;
-
+  padding: 5px 30px;
+  border-bottom: 1px solid #f5f5f5;
 }
 .row__title{
     font-size: 15px;
@@ -118,7 +137,7 @@ async function delUser(id){
 .row__icons-go{
     cursor: pointer;
     color: #fff;
-    border: 1px solid #8da870;
+    border: 3px solid #628042;
     border-radius: 10px;
     padding: 10px;
     background-color: #8DA870;
@@ -132,7 +151,7 @@ async function delUser(id){
 .row__icons-del{
     cursor: pointer;
     color: #fff;
-    border: 1px solid #6b1a2b;
+    border: 3px solid #610f21;
     border-radius: 10px;
     padding: 10px;
     background-color: #6b1a2b;

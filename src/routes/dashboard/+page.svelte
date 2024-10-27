@@ -6,7 +6,7 @@ import Diagrams from "../../components/Diagrams.svelte";
 import Table from "../../components/Table.svelte";
 import { onMount } from "svelte";
   import Files from "../../components/Files.svelte";
-let radioValue='PERSONS';
+let radioValue='ФАЙЛЫ';
 let error = '';
 export let users;
 onMount(async () => {

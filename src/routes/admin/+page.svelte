@@ -6,16 +6,13 @@ import Cookies from 'js-cookie'
   import Users from '../../components/Users.svelte';
 let role = ''
 
-Cookies.set('role', 'admin')
-function checkRole(){
 
-}
 onMount(async () =>{
     role = Cookies.get('role')
 } )
 </script>
 
-{#if role=='User'}
+{#if role=='user'}
 <div class="container">
     Permission denied
 </div>
@@ -30,6 +27,7 @@ onMount(async () =>{
 .container{
     max-width: 1080px;
     margin: 0px auto;
+    height: 100%;
     display: flex;
     flex-direction: column;
     background-color: #eee;
