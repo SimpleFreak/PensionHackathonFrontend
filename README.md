@@ -1,13 +1,14 @@
 # PensionHackathonFrontend
-Project setup
-
+## После клонирования репозитория необходимо установить зависимости следующей командой  
+```
 npm install
-
-Compiles and hot-reloads for development
-
+```
+## Для первоначального ознакомления можно запустить проект в режиме разработки командой ниже
+```
 npm run serve
-
-Compiles and minifies for production
-
+```
+## Следущими двумя командами можно собрать и запустить проект в "боевом" режиме
+```
 npm run build
-
+npm run preview
+```
